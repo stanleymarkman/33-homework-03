@@ -1,32 +1,29 @@
 from django.shortcuts import render
 from .forms import RegistrationForm, RetrieveForm
 from .models import Users, ArtistAttributes, Artists, Ratings
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
+@csrf_exempt
 def registration(request):
-	reg_form = RegistrationForm
-	ret_form = RetrieveForm
 	if request.method == 'POST':
-		form = RegistrationForm(request.POST)
-		if form.is_valid():
-			try:
-				user = Users.objects.get(username = form.cleaned_data.get("username"))
-			except Users.DoesNotExist:
-				user = None
+		password = request.POST.get("password");
+		username = request.POST.get("username");
+		print(username);
+		try:
+			user = Users.objects.get(username = username)
+		except Users.DoesNotExist:
+			user = None
 
-			if(user == None and form.cleaned_data.get("username") != ""):
-				newUser = Users(username = form.cleaned_data.get("username"), password = form.cleaned_data.get("password"))
-				newUser.save()
-				reg_form.output = "User " +  form.cleaned_data.get("username") + " created!"
-			else:
-				reg_form.output = "Username is empty or taken!"
-
-			context = {'reg_form': reg_form, 'ret_form': ret_form}
-
+		if(user == None and username != ""):
+			newUser = Users(username = username, password = password)
+			newUser.save()
+		else:
+			return False;
 	else:
-		context = {'reg_form': reg_form, 'ret_form': ret_form}
+		return False;
 
-	return render(request, 'MusicAppDB/index.html', context)
+	return True;
 
 def songret(request):
 	reg_form = RegistrationForm
