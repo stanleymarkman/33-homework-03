@@ -2,28 +2,31 @@ from django.shortcuts import render
 from .forms import RegistrationForm, RetrieveForm
 from .models import Users, ArtistAttributes, Artists, Ratings
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
+from django.http import HttpResponse
 
 @csrf_exempt
 def registration(request):
 	if request.method == 'POST':
 		password = request.POST.get("password");
 		username = request.POST.get("username");
+		print(request.POST);
+		print("AYOOO");
 		print(username);
+		
 		try:
 			user = Users.objects.get(username = username)
 		except Users.DoesNotExist:
 			user = None
 
-		if(user == None and username != ""):
+		if(user == None and username != "" and password != ""):
 			newUser = Users(username = username, password = password)
 			newUser.save()
 		else:
-			return False;
+			return HttpResponse("failure");
 	else:
-		return False;
+		return HttpResponse("failure");
 
-	return True;
+	return HttpResponse("success");
 
 def songret(request):
 	reg_form = RegistrationForm
