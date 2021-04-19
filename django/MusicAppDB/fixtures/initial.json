@@ -90,7 +90,7 @@
     },
     {
         "model": "MusicAppDB.ratings",
-        "pk": 10,
+        "pk": 11,
         "fields": {
           "username": "Amelia-Earhart",
           "song": "Days of Wine and Roses",
@@ -99,7 +99,7 @@
     },
     {
         "model": "MusicAppDB.ratings",
-        "pk": 10,
+        "pk": 12,
         "fields": {
           "username": "Otto",
           "song": "Days of Wine and Roses",
@@ -108,7 +108,7 @@
     },
     {
         "model": "MusicAppDB.ratings",
-        "pk": 10,
+        "pk": 13,
         "fields": {
           "username": "Amelia-Earhart",
           "song": "These Walls",
