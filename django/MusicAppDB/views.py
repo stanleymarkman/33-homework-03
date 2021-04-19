@@ -42,7 +42,7 @@ def rate(request):
 		
 		#Get the artist for the song, create if nonexistant
 		try:
-			song = Artists.objects.get(song = songname);
+			song = Artists.objects.get(song = songname, artist=artistname);
 		except Artists.DoesNotExist:
 			try:
 				artist = ArtistAttributes.objects.get(name = artistname);
@@ -53,17 +53,30 @@ def rate(request):
 			song.save();
 		#Try and get the rating for that user and that song, return error if it exists
 		try:
-			rating = Ratings.objects.get(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname));
+			rating = Ratings.objects.get(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname, artist=ArtistAttributes.objects.get(name = artistname)));
 			if(rating != None):
 				return HttpResponse("failure_alreadyrated");
 		except Ratings.DoesNotExist:
 			rating = Ratings(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname),rating=rating);
 			rating.save();
 			return HttpResponse("success");
+
+@csrf_exempt	
+def averagerating(request):
+	if(request.method == 'POST'):
+		songname = request.POST.get("songname");
+		print("name:" + songname);
+		ratings = Ratings.objects.filter(song=songname);
+		totalrating = 0;
+		if(ratings.count() == 0):
+			return HttpResponse("failure");
+		for rating in ratings:
+			totalrating += rating.rating;
+		return HttpResponse(totalrating/ratings.count());
+
 		
 
-
-
+@csrf_exempt
 def songret(request):
 	reg_form = RegistrationForm
 	ret_form = RetrieveForm
@@ -78,6 +91,7 @@ def songret(request):
 
 	return render(request, 'MusicAppDB/index.html', context)
 
+@csrf_exempt
 def artistret(request):
 	reg_form = RegistrationForm
 	ret_form = RetrieveForm
@@ -92,6 +106,7 @@ def artistret(request):
 	context = {'reg_form': reg_form, 'ret_form': ret_form}
 	return render(request, 'MusicAppDB/index.html', context)
 
+@csrf_exempt
 def index(request):
 	reg_form = RegistrationForm
 	ret_form = RetrieveForm
