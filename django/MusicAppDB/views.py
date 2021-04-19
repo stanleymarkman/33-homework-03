@@ -3,6 +3,7 @@ from .forms import RegistrationForm, RetrieveForm
 from .models import Users, ArtistAttributes, Artists, Ratings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from django.core import serializers
 
 @csrf_exempt
 def registration(request):
@@ -74,8 +75,6 @@ def averagerating(request):
 			totalrating += rating.rating;
 		return HttpResponse(totalrating/ratings.count());
 
-		
-
 @csrf_exempt
 def songret(request):
 	reg_form = RegistrationForm
@@ -90,6 +89,13 @@ def songret(request):
 		context = {'reg_form': reg_form, 'ret_form': ret_form}
 
 	return render(request, 'MusicAppDB/index.html', context)
+
+@csrf_exempt
+def getallsongs(request):
+	if(request.method == 'GET'):
+		qs = Artists.objects.all();
+		qs_json = serializers.serialize('json', qs);
+		return HttpResponse(qs_json, content_type='application/json')
 
 @csrf_exempt
 def artistret(request):
