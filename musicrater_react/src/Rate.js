@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
+import axios from "axios";
 
 import "./static/formStyles.css";
 
@@ -20,6 +21,9 @@ export default function Rate() {
 
     const onSubmit = (data) => {
     alert(JSON.stringify(data));
+    axios.post("http://localhost:8000/rate/", { data })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));
     };
 
     return (
@@ -35,7 +39,7 @@ export default function Rate() {
         <label>Song</label>
         <Controller
             render={({ field }) => <input {...field} />}
-            name="song"
+            name="songname"
             control={control}
             defaultValue=""
         />
@@ -43,7 +47,7 @@ export default function Rate() {
         <label>Artist</label>
         <Controller
             render={({ field }) => <input {...field} />}
-            name="artist"
+            name="artistname"
             control={control}
             defaultValue=""
         />
@@ -55,9 +59,6 @@ export default function Rate() {
             render={({ field }) => (
                 <Slider
                   {...field}
-                  onChange={(_, value) => {
-                    field.onChange(value);
-                  }}
                   valueLabelDisplay="auto"
                   marks
                   min={0}

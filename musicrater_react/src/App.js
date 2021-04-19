@@ -12,8 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
-import axios from "axios";
-import { useForm } from "react-hook-form";
 import Rate from './Rate';
 
 
@@ -29,8 +27,6 @@ function Copyright() {
     </Typography>
   );
 }
-
-var bodyFormData = new FormData();
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -68,10 +64,6 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 export default function App() {
   const classes = useStyles();
-  // axios
-  //   .get("http://localhost:8000/reg")
-  //   .then(res => console.log(res.data))
-  //   .catch(err => console.log(err));
 
   return (
     <React.Fragment>
