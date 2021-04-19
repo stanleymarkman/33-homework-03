@@ -9,9 +9,6 @@ def registration(request):
 	if request.method == 'POST':
 		password = request.POST.get("password");
 		username = request.POST.get("username");
-		print(request.POST);
-		print("AYOOO");
-		print(username);
 		
 		try:
 			user = Users.objects.get(username = username)

@@ -1,0 +1,8 @@
+how you wanna send requests to the django backend:
+https://stackoverflow.com/questions/47630163/axios-post-request-to-send-form-data
+everything shld be sent as form data
+
+/reg/:
+    username
+    password
+returns string either "success" or "failure"
