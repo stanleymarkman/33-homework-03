@@ -25,6 +25,45 @@ def registration(request):
 
 	return HttpResponse("success");
 
+@csrf_exempt
+def rate(request):
+	if(request.method == 'POST'):
+		username = request.POST.get("username");
+		songname = request.POST.get("songname");
+		rating = request.POST.get("rating");
+		artistname = request.POST.get("artistname");
+
+		user = None;
+
+		try:
+			user = Users.objects.get(username=username);
+		except Users.DoesNotExist:
+			return HttpResponse("failure_usernonexistant")
+		
+		#Get the artist for the song, create if nonexistant
+		try:
+			song = Artists.objects.get(song = songname);
+		except Artists.DoesNotExist:
+			try:
+				artist = ArtistAttributes.objects.get(name = artistname);
+			except ArtistAttributes.DoesNotExist:
+				artist = ArtistAttributes(name = artistname, genre = "", birth_location = "", birth_year = 0);
+				artist.save();
+			song = Artists(song = songname, artist = artist);
+			song.save();
+		#Try and get the rating for that user and that song, return error if it exists
+		try:
+			rating = Ratings.objects.get(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname));
+			if(rating != None):
+				return HttpResponse("failure_alreadyrated");
+		except Ratings.DoesNotExist:
+			rating = Ratings(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname),rating=rating);
+			rating.save();
+			return HttpResponse("success");
+		
+
+
+
 def songret(request):
 	reg_form = RegistrationForm
 	ret_form = RetrieveForm
