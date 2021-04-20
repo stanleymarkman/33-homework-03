@@ -20,14 +20,19 @@ export default function Rate() {
     const classes = useStyles();
 
     const onSubmit = (data) => {
-    alert(JSON.stringify(data));
-    axios.post("http://localhost:8000/rate/", { data })
+    console.log(data);
+    const formData = new FormData();
+    formData.append('username', data.username);
+    formData.append('songname', data.songname);
+    formData.append('artistname', data.artistname);
+    formData.append('rating', data.rating);
+    axios.post("http://localhost:8000/rate/", formData)
         .then(res => console.log(res.data))
         .catch(err => console.log(err));
     };
 
     return (
-        <form className={classes.formStyle} onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>
         <Controller
             render={({ field }) => <input {...field} />}
