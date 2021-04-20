@@ -34,6 +34,18 @@ class SongCard extends React.Component {
         .then(json => this.setState({ data: json.data }));
     }
 
+    handleDelete(pk) {
+      var arr = [...this.state.data];
+      var i = arr.indexOf(pk);
+      if (i != -1) {
+        arr.splice(i, 1);
+        this.setState({ data: arr}, () => {
+          console.log(this.state.data)
+        });
+      }
+      
+    }
+
     render() {
         const useStyles = makeStyles((theme) => ({
         card: {
@@ -47,17 +59,12 @@ class SongCard extends React.Component {
         }));
 
         const classes = this.props;
-        //var SongCards = await GetSongCardsObject();
         console.log("SONGCARDS" + JSON.stringify(this.state.data[0]));
-        var artistName = "TAY-K";
-        var songName = "THE RACE";
-        //artistName = SongCards[card].artist;
-        //songName = SongCards;
-        //console.log(SongCards);
         if(this.state.data == []){
-            console.log("EPOTY");
+            console.log("EMPTY");
             return "error";
         }
+
         return (
             <Grid container spacing={4}>
             {this.state.data.map((card) =>
@@ -73,7 +80,7 @@ class SongCard extends React.Component {
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    <Button size="small" color="primary">
+                    <Button size="small" color="primary" onClick={() => this.handleDelete(card)}>
                       Delete
                     </Button>
                   </CardActions>
