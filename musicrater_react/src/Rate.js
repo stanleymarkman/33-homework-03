@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -20,19 +20,19 @@ export default function Rate() {
     const classes = useStyles();
 
     const onSubmit = (data) => {
-    console.log(data);
-    const formData = new FormData();
-    formData.append('username', data.username);
-    formData.append('songname', data.songname);
-    formData.append('artistname', data.artistname);
-    formData.append('rating', data.rating);
-    axios.post("http://localhost:8000/rate/", formData)
-        .then(res => console.log(res.data))
-        .catch(err => console.log(err));
+        console.log(data);
+        const formData = new FormData();
+        formData.append('username', data.username);
+        formData.append('songname', data.songname);
+        formData.append('artistname', data.artistname);
+        formData.append('rating', data.rating);
+        axios.post("http://localhost:8000/rate/", formData)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err));
     };
 
-    return (
-        <form onSubmit={handleSubmit(onSubmit)}>
+return (
+    <form onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>
         <Controller
             render={({ field }) => <input {...field} />}
@@ -63,12 +63,15 @@ export default function Rate() {
             control={control}
             render={({ field }) => (
                 <Slider
-                  {...field}
-                  valueLabelDisplay="auto"
-                  marks
-                  min={0}
-                  max={5}
-                  step={1}
+                    {...field}
+                    onChange={(_, value) => {
+                        field.onChange(value);
+                    }}
+                    valueLabelDisplay="auto"
+                    marks
+                    min={0}
+                    max={5}
+                    step={1}
                 />
               )}
         />
