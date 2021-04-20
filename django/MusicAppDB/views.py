@@ -95,6 +95,7 @@ def getallsongs(request):
 	if(request.method == 'GET'):
 		qs = Artists.objects.all();
 		qs_json = serializers.serialize('json', qs);
+		print(qs_json);
 		return HttpResponse(qs_json, content_type='application/json')
 
 @csrf_exempt
