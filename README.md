@@ -17,10 +17,10 @@ cd musicrater_react \
 && npm start
 ```
 
-Implemented features:
--Sorting of songs by average rating, song name, and artist name
--Input validation
+Implemented features:  
+-Sorting of songs by average rating, song name, and artist name  
+-Input validation  
 
-Default usernames:
--Otto
+Default usernames:  
+-Otto  
 -Amelia-Earhart
