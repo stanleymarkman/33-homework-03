@@ -90,8 +90,8 @@ class SongCard extends React.Component {
         }
 
         return (
-          
-            <Grid container spacing={4}>
+          <main>
+          <Grid container spacing={4}>
               <Button size="large" color="primary" onClick={() => this.refresh()}>
                       REFRESH
           </Button>
@@ -105,7 +105,8 @@ class SongCard extends React.Component {
           <Button size="small" color="primary" onClick={() => this.handleSort("artistname")}>
                       Sort By Artist Name
           </Button>
-
+          </Grid>
+          <Grid container spacing={4}>
             {this.state.data.map((card) =>
             (
               <Grid item key={card} xs={12} sm={6} md={4}>
@@ -132,6 +133,7 @@ class SongCard extends React.Component {
             )
             }
           </Grid>
+          </main>
         )
     }
   }
