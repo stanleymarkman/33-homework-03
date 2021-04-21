@@ -33,6 +33,12 @@ class SongCard extends React.Component {
 
     }
 
+    refresh(){
+      axios.get('http://localhost:8000/getallsongs/')//.then(res => res.json())
+      .then(json => this.setState({ data: json.data }));
+
+  }
+
     handleDelete(pk) {
       const formData = new FormData();
       formData.append('song', pk.pk);
@@ -47,6 +53,20 @@ class SongCard extends React.Component {
         });
       }
       
+    }
+
+    handleSort(mode){
+      var data = this.state.data;
+      if(mode == "rating"){
+        data.sort((a, b) => (a.fields.avgrating < b.fields.avgrating) ? 1 : -1)
+      }
+      if(mode == "songname"){
+        data.sort((a, b) => (a.pk < b.pk) ? 1 : -1)
+      }
+      if(mode == "artistname"){
+        data.sort((a, b) => (a.fields.artist < b.fields.artist) ? 1 : -1)
+      }
+      this.setState({ data: data });
     }
 
 
@@ -70,7 +90,22 @@ class SongCard extends React.Component {
         }
 
         return (
+          
             <Grid container spacing={4}>
+              <Button size="large" color="primary" onClick={() => this.refresh()}>
+                      REFRESH
+          </Button>
+
+              <Button size="small" color="primary" onClick={() => this.handleSort("rating")}>
+                      Sort By Rating
+          </Button>
+          <Button size="small" color="primary" onClick={() => this.handleSort("songname")}>
+                      Sort By Song Name
+          </Button>
+          <Button size="small" color="primary" onClick={() => this.handleSort("artistname")}>
+                      Sort By Artist Name
+          </Button>
+
             {this.state.data.map((card) =>
             (
               <Grid item key={card} xs={12} sm={6} md={4}>

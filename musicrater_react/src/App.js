@@ -80,7 +80,7 @@ export default function App() {
           </Container>
         </div>
         <Container className={classes.cardGrid} maxWidth="md">
-          <SongCards />      
+          <SongCards/>      
         </Container>
       </main>
       <footer className={classes.footer}>
