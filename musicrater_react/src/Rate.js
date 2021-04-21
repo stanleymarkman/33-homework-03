@@ -1,11 +1,8 @@
 import React from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { makeStyles } from '@material-ui/core/styles';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/core/Slider';
 import axios from "axios";
 
 import "./static/formStyles.css";
@@ -15,16 +12,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(4),
     },
     }));
-const schema = yup.object().shape({
-    username: yup.string().required(),
-    songname: yup.string().required(),
-    artistname: yup.string().required(),
-    rating: yup.number().positive().integer().required(),
-});
 
 export default function Rate() {
     const { control, register, handleSubmit, formState:{ errors } } = useForm({
-        resolver: yupResolver(schema)
     });
     const classes = useStyles();
 
@@ -44,7 +34,7 @@ return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>
         <Controller
-            render={({ field }) => <input {...register("username")} />}
+            render={({ field }) => <input {...register("username", { required: true, maxLength: 100})} />}
             name="username"
             control={control}
             defaultValue=""
@@ -53,7 +43,7 @@ return (
         <p>{errors.username?.message}</p>
         <label>Song</label>
         <Controller
-            render={({ field }) => <input {...register("songname")} />}
+            render={({ field }) => <input {...register("songname", { required: true, maxLength: 100})} />}
             name="songname"
             control={control}
             defaultValue=""
@@ -62,7 +52,7 @@ return (
         <p>{errors.songname?.message}</p>
         <label>Artist</label>
         <Controller
-            render={({ field }) => <input {...register("artistname")} />}
+            render={({ field }) => <input {...register("artistname", { required: true, maxLength: 100})} />}
             name="artistname"
             control={control}
             defaultValue=""
@@ -71,7 +61,7 @@ return (
         <p>{errors.artistname?.message}</p>
         <label>Rating</label>
         <Controller
-            render={({ field }) => <input {...register("rating")} />}
+            render={({ field }) => <input {...register("rating", { required: true, min: 0, max: 5})} />}
             name="rating"
             control={control}
             defaultValue=""
