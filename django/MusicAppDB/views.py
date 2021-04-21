@@ -62,18 +62,15 @@ def rate(request):
 			rating.save();
 			return HttpResponse("success");
 
-@csrf_exempt	
-def averagerating(request):
-	if(request.method == 'POST'):
-		songname = request.POST.get("songname");
-		print("name:" + songname);
+	
+def averagerating(songname):
 		ratings = Ratings.objects.filter(song=songname);
 		totalrating = 0;
 		if(ratings.count() == 0):
-			return HttpResponse("failure");
+			return 0;
 		for rating in ratings:
 			totalrating += rating.rating;
-		return HttpResponse(totalrating/ratings.count());
+		return totalrating/ratings.count();
 
 @csrf_exempt
 def songret(request):
@@ -94,6 +91,8 @@ def songret(request):
 def getallsongs(request):
 	if(request.method == 'GET'):
 		qs = Artists.objects.all();
+		for q in qs:
+			q.avgrating = averagerating(q.song);
 		qs_json = serializers.serialize('json', qs);
 		return HttpResponse(qs_json, content_type='application/json')
 

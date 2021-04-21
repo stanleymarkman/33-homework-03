@@ -15,6 +15,7 @@ class ArtistAttributes(models.Model):
 class Artists(models.Model):
     song = models.CharField(max_length=255, primary_key=True)
     artist = models.ForeignKey(ArtistAttributes, on_delete=models.RESTRICT)
+    avgrating = models.FloatField(default=0)
 
 class Ratings(models.Model):
     username = models.ForeignKey(Users, on_delete=models.RESTRICT)
