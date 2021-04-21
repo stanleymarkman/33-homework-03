@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +18,8 @@ export default function Rate() {
     });
     const classes = useStyles();
 
+    const [feedback, setFeedback] = useState("");
+
     const onSubmit = (data) => {
         console.log(data);
         const formData = new FormData();
@@ -25,9 +27,12 @@ export default function Rate() {
         formData.append('songname', data.songname);
         formData.append('artistname', data.artistname);
         formData.append('rating', data.rating);
+        setFeedback("Submitting..");
         axios.post("http://localhost:8000/rate/", formData)
-            .then(res => console.log(res.data))
+            .then(res => setFeedback(res.data))
             .catch(err => console.log(err));
+
+        
     };
 
 return (
@@ -79,6 +84,7 @@ return (
             </Grid>
             </Grid>
         </div>
+        {feedback}
     </form>
   );
 };
