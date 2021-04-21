@@ -71,22 +71,12 @@ return (
         <p>{errors.artistname?.message}</p>
         <label>Rating</label>
         <Controller
+            render={({ field }) => <input {...register("rating")} />}
             name="rating"
             control={control}
-            render={({ field }) => (
-                <Slider
-                    {...register("rating")}
-                    onChange={(_, newValue) => {
-                        field.onChange(newValue);
-                    }}
-                    valueLabelDisplay="auto"
-                    marks
-                    min={0}
-                    max={5}
-                    step={1}
-                />
-              )}
+            defaultValue=""
         />
+
         <br />
         <p>{errors.rating?.message}</p>
 

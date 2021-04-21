@@ -30,13 +30,14 @@ class SongCard extends React.Component {
     componentDidMount(){
         axios.get('http://localhost:8000/getallsongs/')//.then(res => res.json())
         .then(json => this.setState({ data: json.data }));
+
     }
 
     handleDelete(pk) {
       const formData = new FormData();
       formData.append('song', pk.pk);
       axios.post('http://localhost:8000/deletesong/', formData);
-      
+
       var arr = [...this.state.data];
       var i = arr.indexOf(pk);
       if (i != -1) {
@@ -47,6 +48,7 @@ class SongCard extends React.Component {
       }
       
     }
+
 
     render() {
         const useStyles = makeStyles((theme) => ({
@@ -78,8 +80,11 @@ class SongCard extends React.Component {
                         {card.pk}
                     </Typography>
                     <Typography variant="subtitle1" component="h2">
-                        {card.fields.artist}
+                        by {card.fields.artist}
                     </Typography>
+
+                    Average Rating: {card.fields.avgrating}
+                    
                   </CardContent>
                   <CardActions>
                     <Button size="small" color="primary" onClick={() => this.handleDelete(card)}>
