@@ -31,12 +31,11 @@ export default function Rate() {
         axios.post("http://localhost:8000/rate/", formData)
             .then(res => setFeedback(res.data))
             .catch(err => console.log(err));
-
-        
+        document.getElementById("rate-form").reset();
     };
 
 return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id="rate-form" onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>
         <Controller
             render={({ field }) => <input {...register("username", { required: 'Username required', maxLength: 100})} />}
