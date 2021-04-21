@@ -95,7 +95,6 @@ def getallsongs(request):
 	if(request.method == 'GET'):
 		qs = Artists.objects.all();
 		qs_json = serializers.serialize('json', qs);
-		print(qs_json);
 		return HttpResponse(qs_json, content_type='application/json')
 
 @csrf_exempt
@@ -119,3 +118,11 @@ def index(request):
 	ret_form = RetrieveForm
 	context = {'reg_form': reg_form, 'ret_form': ret_form}
 	return render(request, 'MusicAppDB/index.html', context)
+
+@csrf_exempt
+def deletesong(request):
+	if(request.method == 'POST'):
+		songname = request.POST.get("song");
+		Ratings.objects.filter(song=songname).delete();
+		Artists.objects.filter(song=songname).delete();
+		return HttpResponse("success");

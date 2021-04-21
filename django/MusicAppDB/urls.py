@@ -9,4 +9,5 @@ urlpatterns = [
     path('rate/', views.rate, name="rate"),
     path('averagerating/', views.averagerating, name="averagerating"),
     path('getallsongs/', views.getallsongs, name="getallsongs"),
+    path('deletesong/', views.deletesong, name="deletesong"),
 ]
