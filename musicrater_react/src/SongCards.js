@@ -61,10 +61,10 @@ class SongCard extends React.Component {
         data.sort((a, b) => (a.fields.avgrating < b.fields.avgrating) ? 1 : -1)
       }
       if(mode == "songname"){
-        data.sort((a, b) => (a.pk < b.pk) ? 1 : -1)
+        data.sort((a, b) => (a.pk.toLowerCase() > b.pk.toLowerCase()) ? 1 : -1)
       }
       if(mode == "artistname"){
-        data.sort((a, b) => (a.fields.artist < b.fields.artist) ? 1 : -1)
+        data.sort((a, b) => (a.fields.artist.toLowerCase() > b.fields.artist.toLowerCase()) ? 1 : -1)
       }
       this.setState({ data: data });
     }
