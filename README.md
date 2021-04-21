@@ -17,5 +17,10 @@ python3 manage.py runserver
 and in another console window:
 ```
 cd musicrater_react
+npm install
 npm start
 ```
+
+Implemented features:
+-Sorting of songs by average rating, song name, and artist name
+-Input validation
