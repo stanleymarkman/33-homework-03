@@ -24,3 +24,7 @@ npm start
 Implemented features:
 -Sorting of songs by average rating, song name, and artist name
 -Input validation
+
+Default usernames:
+-Otto
+-Amelia-Earhart

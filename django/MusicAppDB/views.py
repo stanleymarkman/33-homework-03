@@ -39,7 +39,7 @@ def rate(request):
 		try:
 			user = Users.objects.get(username=username);
 		except Users.DoesNotExist:
-			return HttpResponse("failure_usernonexistant")
+			return HttpResponse("Failure: User nonexistant!")
 		
 		#Get the artist for the song, create if nonexistant
 		try:
@@ -56,11 +56,11 @@ def rate(request):
 		try:
 			rating = Ratings.objects.get(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname, artist=ArtistAttributes.objects.get(name = artistname)));
 			if(rating != None):
-				return HttpResponse("failure_alreadyrated");
+				return HttpResponse("Failure: Already rated by this user!");
 		except Ratings.DoesNotExist:
 			rating = Ratings(username=Users.objects.get(username=username),song=Artists.objects.get(song=songname),rating=rating);
 			rating.save();
-			return HttpResponse("success");
+			return HttpResponse("Rating success!");
 
 	
 def averagerating(songname):
