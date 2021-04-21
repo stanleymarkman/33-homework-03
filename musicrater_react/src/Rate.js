@@ -18,7 +18,7 @@ export default function Rate() {
     });
     const classes = useStyles();
 
-    const [feedback, setFeedback] = useState(0);
+    const [feedback, setFeedback] = useState("");
 
     const onSubmit = (data) => {
         console.log(data);
@@ -27,9 +27,12 @@ export default function Rate() {
         formData.append('songname', data.songname);
         formData.append('artistname', data.artistname);
         formData.append('rating', data.rating);
+        setFeedback("Submitting..");
         axios.post("http://localhost:8000/rate/", formData)
             .then(res => setFeedback(res.data))
             .catch(err => console.log(err));
+
+        
     };
 
 return (
