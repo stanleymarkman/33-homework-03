@@ -9,3 +9,13 @@ cd django \
 && cd ..
 ```
 
+To run the server, both the django and react servers must be running:
+```
+cd django
+python3 manage.py runserver
+```
+and in another console window:
+```
+cd musicrater_react
+npm start
+```
