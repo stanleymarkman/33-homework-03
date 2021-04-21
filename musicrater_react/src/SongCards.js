@@ -33,6 +33,10 @@ class SongCard extends React.Component {
     }
 
     handleDelete(pk) {
+      const formData = new FormData();
+      formData.append('song', pk.pk);
+      axios.post('http://localhost:8000/deletesong/', formData);
+      
       var arr = [...this.state.data];
       var i = arr.indexOf(pk);
       if (i != -1) {
