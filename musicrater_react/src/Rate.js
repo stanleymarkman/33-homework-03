@@ -34,7 +34,7 @@ return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <label>Username</label>
         <Controller
-            render={({ field }) => <input {...register("username", { required: true, maxLength: 100})} />}
+            render={({ field }) => <input {...register("username", { required: 'Username required', maxLength: 100})} />}
             name="username"
             control={control}
             defaultValue=""
@@ -43,7 +43,7 @@ return (
         <p>{errors.username?.message}</p>
         <label>Song</label>
         <Controller
-            render={({ field }) => <input {...register("songname", { required: true, maxLength: 100})} />}
+            render={({ field }) => <input {...register("songname", { required: 'Song required', maxLength: 100})} />}
             name="songname"
             control={control}
             defaultValue=""
@@ -52,7 +52,7 @@ return (
         <p>{errors.songname?.message}</p>
         <label>Artist</label>
         <Controller
-            render={({ field }) => <input {...register("artistname", { required: true, maxLength: 100})} />}
+            render={({ field }) => <input {...register("artistname", { required: 'Artist required', maxLength: 100})} />}
             name="artistname"
             control={control}
             defaultValue=""
@@ -61,7 +61,7 @@ return (
         <p>{errors.artistname?.message}</p>
         <label>Rating</label>
         <Controller
-            render={({ field }) => <input {...register("rating", { required: true, min: 0, max: 5})} />}
+            render={({ field }) => <input {...register("rating", { required: 'Rating required', min: 0, max: 5})} />}
             name="rating"
             control={control}
             defaultValue=""
